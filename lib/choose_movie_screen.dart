@@ -2,15 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cinema/data/movies.dart';
 import 'choose_movie_seanses.dart';
 
-class ChooseMovieScreen extends StatefulWidget {
+class ChooseMovieScreen extends StatelessWidget {
   const ChooseMovieScreen({super.key});
-  @override
-  State<ChooseMovieScreen> createState() {
-    return _ChooseMovieScreenState();
-  }
-}
-
-class _ChooseMovieScreenState extends State<ChooseMovieScreen> {
   @override
   Widget build(BuildContext context) {
     const list = movies;
@@ -31,6 +24,7 @@ class _ChooseMovieScreenState extends State<ChooseMovieScreen> {
                               MaterialPageRoute(
                                   builder: (context) => ChooseMovieSeanses(
                                         seanses: movie.seanses,
+                                        film: movie.name,
                                       )));
                         },
                         child: Text(movie.name))

@@ -1,8 +1,12 @@
+import 'package:cinema/order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cinema/cinema_screen.dart';
 
 class SeatingChart extends StatefulWidget {
-  const SeatingChart({super.key, required this.time});
+  const SeatingChart(
+      {super.key, required this.film, required this.day, required this.time});
+  final String film;
+  final String day;
   final String time;
   @override
   State<SeatingChart> createState() {
@@ -25,7 +29,7 @@ class _SeatingChartState extends State<SeatingChart> {
   void _toggleSeat(int row, int seat) {
     setState(() {
       _seats[row][seat] = !_seats[row][seat];
-      String seatInfo = "Квиток на ${row + 1} Ряд; ${seat + 1} місце";
+      String seatInfo = "Квиток на ${row + 1} Ряд; ${seat + 1} місце; 150 грн;";
 
       if (_seats[row][seat]) {
         choosenSeats.add(seatInfo);
@@ -38,36 +42,47 @@ class _SeatingChartState extends State<SeatingChart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Вибір місць на ${widget.time}')),
+      appBar: AppBar(title: const Text('Вибір місць')),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-              height: 400,
+              height: 300,
               width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: const EdgeInsets.all(5),
               decoration: const BoxDecoration(color: Colors.amber),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [
-                    const Text("КВИТКИ",
-                        style: TextStyle(
-                          fontSize: 20,
-                        )),
-                    ...choosenSeats.map((choosen) {
-                      return Row(
-                        children: [
-                          Text(
-                            choosen,
-                            style: const TextStyle(
-                              fontSize: 20,
-                            ),
-                          )
-                        ],
-                      );
-                    }),
-                  ],
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: [
+                      const Text("КВИТКИ",
+                          style: TextStyle(
+                            fontSize: 20,
+                          )),
+                      ...choosenSeats.map((choosen) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          padding: const EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.black, width: 2)),
+                          child: Row(
+                            children: [
+                              Text(
+                                choosen,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      }),
+                    ],
+                  ),
                 ),
               )),
           const SizedBox(
@@ -124,6 +139,22 @@ class _SeatingChartState extends State<SeatingChart> {
               ),
             ),
           ),
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OrderScreen(
+                              film: widget.film,
+                              day: widget.day,
+                              time: widget.time,
+                              choosenSeats: choosenSeats,
+                            )));
+              },
+              child: const Text("Оформити замовлення"))
         ],
       ),
     );

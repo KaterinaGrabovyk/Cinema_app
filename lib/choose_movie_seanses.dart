@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 class ChooseMovieSeanses extends StatefulWidget {
   const ChooseMovieSeanses({
     super.key,
+    required this.film,
     required this.seanses,
   });
+  final String film;
   final List<List<String>> seanses;
 
   @override
@@ -48,7 +50,10 @@ class _ChooseMovieSeansesState extends State<ChooseMovieSeanses> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SeatingChart(time: seanse)));
+                          builder: (context) => SeatingChart(
+                              film: widget.film,
+                              day: selectedDate,
+                              time: seanse)));
                 },
                 child: Text(seanse));
           }),
