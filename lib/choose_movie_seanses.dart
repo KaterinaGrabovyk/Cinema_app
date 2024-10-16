@@ -40,22 +40,36 @@ class _ChooseMovieSeansesState extends State<ChooseMovieSeanses> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Вибір сеансу')),
+      backgroundColor: Colors.amber,
+      appBar: AppBar(
+        title: const Text('Вибір сеансу', style: TextStyle(fontSize: 30)),
+        backgroundColor: const Color.fromARGB(255, 105, 79, 0),
+        foregroundColor: Colors.white,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ...actual.map((seanse) {
-            return ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SeatingChart(
-                              film: widget.film,
-                              day: selectedDate,
-                              time: seanse)));
-                },
-                child: Text(seanse));
+            return Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color.fromARGB(255, 85, 12, 145)),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SeatingChart(
+                                film: widget.film,
+                                day: selectedDate,
+                                time: seanse)));
+                  },
+                  child: Text(
+                    seanse,
+                    style: const TextStyle(fontSize: 30),
+                  )),
+            );
           }),
           const SizedBox(
             height: 50,
@@ -79,16 +93,20 @@ class _ChooseMovieSeansesState extends State<ChooseMovieSeanses> {
                     margin: const EdgeInsets.symmetric(horizontal: 5),
                     decoration: BoxDecoration(
                       color: selectedDate == dates[index]
-                          ? const Color.fromARGB(255, 229, 251, 25)
-                          : const Color.fromARGB(158, 158, 158, 158),
+                          ? const Color.fromARGB(255, 56, 30, 161)
+                          : const Color.fromARGB(255, 30, 17, 84),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Text(
                       dates[index],
                       style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: selectedDate == dates[index]
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                         color: selectedDate == dates[index]
-                            ? const Color.fromARGB(
-                                255, 0, 0, 0) // Text color for selected item
+                            ? const Color.fromARGB(255, 255, 255,
+                                255) // Text color for selected item
                             : const Color.fromARGB(255, 255, 255, 255),
                       ),
                     ),

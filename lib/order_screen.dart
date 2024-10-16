@@ -15,60 +15,54 @@ class OrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     int summ = choosenSeats.length * 150;
     return Scaffold(
-      appBar: AppBar(title: const Text('Замовлення')),
+      backgroundColor: Colors.amber,
+      appBar: AppBar(
+        title: const Text('Замовлення', style: TextStyle(fontSize: 30)),
+        backgroundColor: const Color.fromARGB(255, 105, 79, 0),
+        foregroundColor: Colors.white,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             'Фільм: $film',
-            style: const TextStyle(fontSize: 30),
+            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
           Text(
-            'Дата: $day Час: $time',
-            style: const TextStyle(fontSize: 30),
+            'Дата: $day ,Час: $time',
+            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Container(
-                height: 400,
-                width: double.infinity,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                padding: const EdgeInsets.all(5),
-                decoration: const BoxDecoration(color: Colors.amber),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [
-                        const Text("КВИТКИ",
-                            style: TextStyle(
+          SizedBox(
+            height: 300,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  ...choosenSeats.map((choosen) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 33, 40, 145),
+                          border: Border.all(color: Colors.black, width: 2)),
+                      child: Row(
+                        children: [
+                          Text(
+                            choosen,
+                            style: const TextStyle(
                               fontSize: 20,
-                            )),
-                        ...choosenSeats.map((choosen) {
-                          return Container(
-                            margin: const EdgeInsets.symmetric(vertical: 5),
-                            padding: const EdgeInsets.all(3),
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.black, width: 2)),
-                            child: Row(
-                              children: [
-                                Text(
-                                  choosen,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                )
-                              ],
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
-                          );
-                        }),
-                      ],
-                    ),
-                  ),
-                )),
+                          )
+                        ],
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            ),
           ),
           const SizedBox(
             height: 30,
