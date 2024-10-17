@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cinema/thanks_screen.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen(
@@ -14,6 +15,7 @@ class OrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int summ = choosenSeats.length * 150;
+    double hei = choosenSeats.length * 60;
     return Scaffold(
       backgroundColor: Colors.amber,
       appBar: AppBar(
@@ -32,8 +34,11 @@ class OrderScreen extends StatelessWidget {
             'Дата: $day ,Час: $time',
             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
-          SizedBox(
-            height: 300,
+          Container(
+            decoration:
+                const BoxDecoration(color: Color.fromARGB(255, 204, 163, 40)),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            height: hei <= 300 ? hei : 300,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
@@ -71,7 +76,44 @@ class OrderScreen extends StatelessWidget {
               style: const TextStyle(
                   fontSize: 30,
                   color: Color.fromARGB(255, 228, 42, 0),
-                  fontWeight: FontWeight.bold))
+                  fontWeight: FontWeight.bold)),
+          const SizedBox(
+            height: 30,
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 50),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: const Color.fromARGB(255, 85, 12, 145),
+                      side: const BorderSide(
+                          color: Color.fromARGB(255, 85, 12, 145), width: 2),
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ThanksScreen()));
+                    },
+                    child: const Text(
+                      "Завершити",
+                      style: TextStyle(fontSize: 20),
+                    )),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor:
+                            const Color.fromARGB(255, 85, 12, 145)),
+                    onPressed: () {},
+                    child: const Text(
+                      "Доодати снеки",
+                      style: TextStyle(fontSize: 20),
+                    )),
+              ],
+            ),
+          )
         ],
       ),
     );

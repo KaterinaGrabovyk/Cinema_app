@@ -10,39 +10,50 @@ class ChooseMovieScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.amber,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Вибір фільму', style: TextStyle(fontSize: 30)),
         backgroundColor: const Color.fromARGB(255, 105, 79, 0),
         foregroundColor: Colors.white,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ...list.map(
-            (movie) {
-              return Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor:
-                              const Color.fromARGB(255, 85, 12, 145)),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChooseMovieSeanses(
-                                      seanses: movie.seanses,
-                                      film: movie.name,
-                                    )));
-                      },
-                      child: Text(
-                        movie.name,
-                        style: const TextStyle(fontSize: 20),
-                      )));
-            },
-          )
-        ],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            ...list.map(
+              (movie) {
+                return Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/${movie.codeName}.jpg',
+                        ),
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.white,
+                                backgroundColor:
+                                    const Color.fromARGB(255, 85, 12, 145)),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ChooseMovieSeanses(
+                                            seanses: movie.seanses,
+                                            film: movie.name,
+                                            youtcode: movie.youtubeCode,
+                                          )));
+                            },
+                            child: Text(
+                              movie.name,
+                              style: const TextStyle(fontSize: 20),
+                            )),
+                      ],
+                    ));
+              },
+            )
+          ],
+        ),
       ),
     );
   }
